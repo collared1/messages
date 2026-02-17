@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Anonymous Board</title>
+</head>
+<body>
+  <h1>Anonymous Messages</h1>
+
+  <input id="msg" placeholder="Type message..." />
+  <button onclick="send()">Send</button>
+
+  <ul id="messages"></ul>
+
+  <script>
+    async function load() {
+      const res = await fetch("/messages");
+      const data = await res.json();
+      const list = document.getElementById("messages");
+      list.innerHTML = "";
+      data.forEach(m => {
+        const li = document.createElement("li");
+        li.textContent = m.content;
+        list.appendChild(li);
+      });
+    }
+
+    async function send() {
+      const msg = document.getElementById("msg").value;
+      await fetch("/messages", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ message: msg })
+      });
+      document.getElementById("msg").value = "";
+      load();
+    }
+
+    load();
+  </script>
+</body>
+</html>
