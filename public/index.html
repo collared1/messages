@@ -19,9 +19,10 @@
       list.innerHTML = "";
       data.forEach(m => {
         const li = document.createElement("li");
-        li.textContent = m.content;
+        li.textContent = m.username + ": " + m.content;
         list.appendChild(li);
-      });
+});
+
     }
 
     async function send() {
