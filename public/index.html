@@ -13,7 +13,7 @@
 
   <script>
     async function load() {
-      const res = await fetch("/messages");
+      const res = await fetch("/functions/messages");
       const data = await res.json();
       const list = document.getElementById("messages");
       list.innerHTML = "";
@@ -27,7 +27,7 @@
 
     async function send() {
       const msg = document.getElementById("msg").value;
-      await fetch("/messages", {
+      await fetch("/functions/messages", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({ message: msg })
